@@ -1,7 +1,5 @@
-// Khởi tạo giỏ hàng
 var cart = [];
 
-// Hàm thêm sản phẩm vào giỏ hàng
 function addToCart(productId, price) {
     var product = {
         id: productId,
@@ -9,20 +7,16 @@ function addToCart(productId, price) {
         quantity: 1
     };
 
-    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
     var existingProduct = cart.find(function(item) {
         return item.id === productId;
     });
 
     if (existingProduct) {
-        // Nếu sản phẩm đã tồn tại, tăng số lượng lên 1
         existingProduct.quantity++;
     } else {
-        // Nếu sản phẩm chưa tồn tại, thêm sản phẩm vào giỏ hàng
         cart.push(product);
     }
 
-    // Hiển thị thông báo đã thêm vào giỏ hàng
     Swal.fire({
         icon: 'success',
         title: 'Thành công',
@@ -30,9 +24,7 @@ function addToCart(productId, price) {
     });
 }
 
-// Hàm hiển thị giỏ hàng
 function showCart() {
-    // Kiểm tra xem giỏ hàng có sản phẩm hay không
     if (cart.length === 0) {
         Swal.fire({
             icon: 'info',
@@ -40,7 +32,6 @@ function showCart() {
             text: 'Bạn chưa có sản phẩm nào trong giỏ hàng!'
         });
     } else {
-        // Hiển thị thông tin giỏ hàng
         var html = '<h3>Giỏ hàng của bạn</h3>';
         html += '<ul>';
         var total = 0;
@@ -61,25 +52,77 @@ function showCart() {
     }
 }
 
-// Hàm xoá sản phẩm khỏi giỏ hàng
 function removeFromCart(productId) {
-    // Tìm sản phẩm trong giỏ hàng
     var index = cart.findIndex(function(item) {
         return item.id === productId;
     });
 
     if (index !== -1) {
-        // Xoá sản phẩm khỏi giỏ hàng
-        cart.splice(index, 1);
+        cart[index].quantity--;
 
-        // Hiển thị thông báo xoá thành công
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1);
+        }
+
         Swal.fire({
             icon: 'success',
             title: 'Thành công',
             text: 'Sản phẩm đã được xoá khỏi giỏ hàng!'
-          });
-      }
-  
-      // Cập nhật lại giao diện giỏ hàng
-      showCart();
-  }
+        });
+    }
+
+    showCart();
+}
+
+function getRandomColor() {
+    var colors = ['#87CEEB', '#FFC0CB', '#FFC0CB', '#000000'];
+    var randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+}
+
+function changeTextColor() {
+    var titleElement = document.getElementById('product-title');
+    var randomColor = getRandomColor();
+
+    titleElement.style.color = randomColor;
+}
+
+changeTextColor();
+
+setInterval(changeTextColor, 500);
+
+var notifications = [
+    "Thông báo sản phẩm của chúng tôi chưa sẵn mặt hàng để bán, xin quý khách vui lòng trở lại sau!"
+];
+
+var notificationText = document.getElementById("notification-text");
+var index = 0;
+
+function showNotification() {
+    notificationText.textContent = notifications[index];
+    index = (index + 1) % notifications.length;
+}
+
+showNotification();
+
+setInterval(showNotification, 900000);
+
+// Đăng nhập
+function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    if (username === "admin" && password === "admin123") {
+        Swal.fire({
+            icon: 'success',
+            title: 'Đăng nhập thành công',
+            text: 'Chào mừng bạn đến với trang quản lý!'
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Đăng nhập thất bại',
+            text: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
+        });
+    }
+}
