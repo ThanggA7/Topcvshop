@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Noazuynh</title>
+    <title>Trang web bán hàng</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="shortcut icon" href="./IMG/icon.png" />
     <link rel="stylesheet" href="./Assets/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,200&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Topcv Account Store</a>
+            <a class="navbar-brand" href="#">Noazuynh Store</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,7 +36,7 @@
     </header>
 
     <main class="container mt-4">
-        <h1>Sản phẩm bán chạy</h1>
+        <h1 id="product-title">Sản phẩm bán chạy</h1>
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card">
@@ -57,7 +60,7 @@
             </div>
             <div class="col-md-4 mb-3">
                 <div class="card">
-                    <img src="./IMG/product3.png" height="350" class="card-img-top" alt="Sản phẩm 3">
+                    <img src="./IMG/product3.png" class="card-img-top" alt="Sản phẩm 3">
                     <div class="card-body">
                         <h5 class="card-title">Sản phẩm 3</h5>
                         <p class="card-text">Mô tả sản phẩm 3.</p>
@@ -68,14 +71,19 @@
         </div>
     </main>
 
-    <footer >
-        <p>Email: luunhuthang2402@gmail.com</p>
+    <footer>
+        <div class="container text-center">
+            <p>© 2023 Topcv Account Store X @nhuthangl24</p>
+        </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.7.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="./Script/script.js"></script>
 </body>
 </html>
