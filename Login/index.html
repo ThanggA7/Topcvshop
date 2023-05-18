@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký và Đăng nhập</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .card {
+      margin-top: 50px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      text-align: center;
+    }
+
+    .tab {
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .message {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .message.success {
+      color: #28a745;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+
+    .message.error {
+      color: #dc3545;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <span id="register-tab" class="nav-link tab active">Đăng ký</span>
+          </li>
+          <li class="nav-item">
+            <span id="login-tab" class="nav-link tab">Đăng nhập</span>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <form id="register-form">
+          <div class="form-group">
+            <input type="text" id="register-username" class="form-control" placeholder="Tên đăng nhập">
+          </div>
+          <div class="form-group">
+            <input type="email" id="register-email" class="form-control" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input type="password" id="register-password" class="form-control" placeholder="Mật khẩu">
+          </div>
+          <div class="form-group">
+            <input type="password" id="register-confirm-password" class="form-control" placeholder="Xác nhận mật khẩu">
+          </div>
+          <button type="submit" class="btn btn-primary">Đăng ký</button>
+          <div id="register-message" class="message"></div>
+        </form>
+        <form id="login-form" style="display: none;">
+          <div class="form-group">
+            <input type="email" id="login-email" class="form-control" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input type="password" id="login-password" class="form-control" placeholder="Mật khẩu">
+          </div>
+          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+          <div id="login-message" class="message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
