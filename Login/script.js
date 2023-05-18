@@ -44,30 +44,30 @@ document.addEventListener("DOMContentLoaded", function() {
       return;
     }
 
-    // Gửi yêu cầu đăng ký đến JSONBin
-    fetch("https://api.jsonbin.io/v3/b/6465c761b89b1e22999fd5e6", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Master-Key": "$2b$10$JRUjpE/EjtU9wxot/t6YPOCmmD7CuaKaSmic2gdQ0lGQFr3qTZqdO"
-      },
-      body: JSON.stringify({
-        username: registerUsername.value,
-        email: registerEmail.value,
-        password: registerPassword.value
-      })
-    })
-    .then(function(response) {
-      if (response.ok) {
-        showMessage(registerMessage, "Registration successful!", "success");
-        registerForm.reset();
-      } else {
-        showMessage(registerMessage, "Registration failed. Please try again later.", "error");
-      }
-    })
-    .catch(function(error) {
-      showMessage(registerMessage, "Registration failed. Please try again later.", "error");
+    // Kiểm tra xem người dùng đã tồn tại trong Local Storage chưa
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const existingUser = users.find(function(user) {
+      return user.email === registerEmail.value;
     });
+
+    if (existingUser) {
+      showMessage(registerMessage, "Email already exists. Please use a different email.", "error");
+      return;
+    }
+
+    // Thêm người dùng mới vào Local Storage
+    const newUser = {
+      username: registerUsername.value,
+      email: registerEmail.value,
+      password: registerPassword.value
+    };
+
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    showMessage(registerMessage, "Registration successful!", "success");
+    registerForm.reset();
   });
 
   loginForm.addEventListener("submit", function(e) {
@@ -78,32 +78,20 @@ document.addEventListener("DOMContentLoaded", function() {
       return;
     }
 
-    // Gửi yêu cầu đăng nhập đến JSONBin
-    fetch("https://api.jsonbin.io/v3/b/6465c761b89b1e22999fd5e6", {
-      method: "GET",
-      headers: {
-        "X-Master-Key": "$2b$10$JRUjpE/EjtU9wxot/t6YPOCmmD7CuaKaSmic2gdQ0lGQFr3qTZqdO"
-      }
-    })
-    .then(function(response) {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Failed to fetch JSONBin data.");
-      }
-    })
-    .then(function(data) {
-      // Kiểm tra email và mật khẩu
-      if (data.email === loginEmail.value && data.password === loginPassword.value) {
-        showMessage(loginMessage, "Login successful!", "success");
-        loginForm.reset();
-      } else {
-        showMessage(loginMessage, "Invalid email or password. Please try again.", "error");
-      }
-    })
-    .catch(function(error) {
-      showMessage(loginMessage, "Login failed. Please try again later.", "error");
+    // Lấy danh sách người dùng từ Local Storage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Kiểm tra email và mật khẩu
+    const user = users.find(function(user) {
+      return user.email === loginEmail.value && user.password === loginPassword.value;
     });
+
+    if (user) {
+      showMessage(loginMessage, "Login successful!", "success");
+      loginForm.reset();
+    } else {
+      showMessage(loginMessage, "Invalid email or password. Please try again.", "error");
+    }
   });
 
   function showMessage(element, message, type) {
