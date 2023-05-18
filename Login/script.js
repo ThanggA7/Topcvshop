@@ -44,17 +44,50 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
   
-      // Gửi yêu cầu đăng ký đến JSON-Server
-      fetch("https://api.jsonbin.io/v3/b/6465bced8e4aa6225e9f26aa", {
-        method: "POST",
+      // Gửi yêu cầu lấy dữ liệu từ JSONBin
+      fetch("https://api.jsonbin.io/v3/b/6465b3be8e4aa6225e9f233a/latest", {
+        method: "GET",
         headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+          "X-Master-Key": "$2b$10$f3meDw2Gm270nM5Smn72a.KwG4O8i5724h7HGbm1lNH5oZfESVIJO"
+        }
+      })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch JSONBin data.");
+        }
+      })
+      .then(function(data) {
+        // Kiểm tra email đã tồn tại trong dữ liệu hay chưa
+        const existingUser = data.users.find(function(user) {
+          return user.email === registerEmail.value;
+        });
+  
+        if (existingUser) {
+          showMessage(registerMessage, "Email already exists. Please use a different email.", "error");
+          return;
+        }
+  
+        // Tạo đối tượng người dùng mới
+        const newUser = {
           username: registerUsername.value,
           email: registerEmail.value,
           password: registerPassword.value
-        })
+        };
+  
+        // Thêm người dùng mới vào dữ liệu
+        data.users.push(newUser);
+  
+        // Gửi yêu cầu cập nhật dữ liệu lên JSONBin
+        return fetch("https://api.jsonbin.io/v3/b/6465b3be8e4aa6225e9f233a", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": "$2b$10$f3meDw2Gm270nM5Smn72a.KwG4O8i5724h7HGbm1lNH5oZfESVIJO"
+          },
+          body: JSON.stringify(data)
+        });
       })
       .then(function(response) {
         if (response.ok) {
@@ -77,19 +110,27 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
   
-      // Gửi yêu cầu đăng nhập đến JSON-Server
-      fetch("https://api.jsonbin.io/v3/b/6465bced8e4aa6225e9f26aa", {
-        method: "POST",
+      // Gửi yêu cầu lấy dữ liệu từ JSONBin
+      fetch("https://api.jsonbin.io/v3/b/6465b3be8e4aa6225e9f233a/latest", {
+        method: "GET",
         headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: loginEmail.value,
-          password: loginPassword.value
-        })
+          "X-Master-Key": "$2b$10$f3meDw2Gm270nM5Smn72a.KwG4O8i5724h7HGbm1lNH5oZfESVIJO"
+        }
       })
       .then(function(response) {
         if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch JSONBin data.");
+        }
+      })
+      .then(function(data) {
+        // Kiểm tra email và mật khẩu
+        const user = data.users.find(function(user) {
+          return user.email === loginEmail.value && user.password === loginPassword.value;
+        });
+  
+        if (user) {
           showMessage(loginMessage, "Login successful!", "success");
           loginForm.reset();
         } else {
