@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   
       // Gửi yêu cầu đăng ký đến JSON-Server
-      fetch("http://localhost:3000/users", {
+      fetch("https://api.jsonbin.io/v3/b/6465bced8e4aa6225e9f26aa", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   
       // Gửi yêu cầu đăng nhập đến JSON-Server
-      fetch("http://localhost:3000/login", {
+      fetch("https://api.jsonbin.io/v3/b/6465bced8e4aa6225e9f26aa", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
